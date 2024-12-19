@@ -1,11 +1,14 @@
 from TTT import TicTacToe
 from Ai import Ai
+import json
 
 MENUS = {
     'main': {
         0: "Exit",
-        1: "Play Tic-Tac-Toe"
+        1: "Play Tic-Tac-Toe",
+        2: "History"
     },
+
     'again': {
         0: "Yes",
         1: "No"
@@ -44,6 +47,25 @@ def cont() -> int:
             print('\nInvalid input!')
             continue
 
+def write(ttt: 'TicTacToe', winner: str) -> None:
+    info = ttt.toJSON()
+    info["winner"] = winner
+    history = read()
+
+    history.append(info)
+
+    with open("history.json", "w") as f:
+        json.dump(history, f, indent=1)
+
+def read() -> list:
+    try:
+        with open("history.json", "r") as file:
+            history = json.load(file)
+    except(FileNotFoundError, json.JSONDecodeError):
+        history = []
+
+    return history
+
 if __name__ == '__main__':
     T = TicTacToe()
     AI = Ai()
@@ -77,6 +99,8 @@ if __name__ == '__main__':
                             winner = "PLAYER" if T.decision() == "X" else "AI"
                             print(f"\n*****The winner is {winner}!*****")
 
+                            write(T, winner)
+
                             print(con)
                             c = cont()
                             if c == 0:
@@ -88,6 +112,8 @@ if __name__ == '__main__':
                             print(T.present())
                             print("\n*****TIED*****")
 
+                            write(T, "ai")
+
                             print(con)
                             c = cont()
                             if c == 0:
@@ -97,6 +123,8 @@ if __name__ == '__main__':
 
                 except ValueError:
                     print('\nInput valid value')
+        elif inp == "2":
+            pass
 
         else:
             print('\nInvalid Input!')

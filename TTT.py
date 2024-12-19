@@ -1,4 +1,5 @@
 """ Tic-Tac-Toe """
+import time
 
 class TicTacToe:
     def __init__(self) -> None:
@@ -6,6 +7,7 @@ class TicTacToe:
         """
         self.__table = [[" " for _ in range(3)] for _ in range(3)]
         self.__avalable_slots = list(range(0, 9))
+        self.__time_played = time.localtime()
 
     def __str__(self) -> str:
         """a method that displays something
@@ -13,7 +15,25 @@ class TicTacToe:
         Returns:
             str: a string representation of somethings
         """
-        return str(self.__table)
+        # return str(self.__table)
+        return str(self.toJSON())
+    
+    def toJSON(self) -> dict:
+        """a method that converts python object to json object
+
+        Returns:
+            dict: json object/ python dictionary
+        """
+        def json(t: time.struct_time):
+            return {
+                "date": f"{t.tm_mon}/{t.tm_mday}/{t.tm_year}",
+                "time": f"{t.tm_hour}: {t.tm_min}: {t.tm_sec}"
+            }
+        return {
+            "table": self.__table,
+            "available_slots": self.__avalable_slots,
+            "time_played": json(self.__time_played),
+        }
     
     def getBoard(self) -> list[list]:
         """a method that gets the table of the game
@@ -30,6 +50,14 @@ class TicTacToe:
             list[list]: a list of available slots identities in the board
         """
         return self.__avalable_slots
+    
+    def getTime(self) -> time.strptime:
+        """a method that return the time in which the match is played
+
+        Returns:
+            time.strptime: the 
+        """
+        return self.__time_played
     
     def clearBoard(self) -> None:
         """a method that clears the board
@@ -60,7 +88,7 @@ class TicTacToe:
             return True
         return False
     
-    def occupy(self, ins: int) -> None:
+    def __occupy(self, ins: int) -> None:
         """a method that declares the plotted slot on the table
 
         Args:
@@ -93,7 +121,7 @@ class TicTacToe:
                 self.__table[1][ins-3] = "O"
             elif ins in range(6, 9):
                 self.__table[2][ins-6] = "O"
-        self.occupy(ins)
+        self.__occupy(ins)
         
     def decision(self) -> str:
         """a method that decides who is the winner of the game
@@ -153,3 +181,6 @@ class TicTacToe:
 # print(T.getBoard())
 # print(T.decision())
 # print(T.present())
+
+# T = TicTacToe()
+# print(T)
