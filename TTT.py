@@ -19,7 +19,7 @@ class TicTacToe:
         """a method that gets the table of the game
 
         Returns:
-            list[list]: a table represents as a 2d array
+            list[list]: a table represented as a 2d array
         """
         return self.__table
     
@@ -27,7 +27,7 @@ class TicTacToe:
         """a method that gets the available slots in the board
 
         Returns:
-            list[list]: a list of available slots in the board
+            list[list]: a list of available slots identities in the board
         """
         return self.__avalable_slots
     

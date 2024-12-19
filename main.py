@@ -37,6 +37,7 @@ def cont() -> int:
             T.clearBoard()
             return 0
         elif opt == "1":
+            T.clearBoard()
             print('\nReturning to main...')
             return 1
         else:
@@ -46,8 +47,10 @@ def cont() -> int:
 if __name__ == '__main__':
     T = TicTacToe()
     AI = Ai()
+    con = '\nContinue?'
 
     while True:
+        print('\n<-----Tic_Tac_Toe Game----->')
         showMenu(MENUS, 'main')
         inp = input("\nEnter choice: ")
         if inp == '0':
@@ -71,9 +74,10 @@ if __name__ == '__main__':
 
                         if type(T.decision()) == str:
                             print(T.present())
-                            winner = "Player" if T.decision() == "X" else "Ai"
-                            print(f"\nThe winner is {winner}!")
+                            winner = "PLAYER" if T.decision() == "X" else "AI"
+                            print(f"\n*****The winner is {winner}!*****")
 
+                            print(con)
                             c = cont()
                             if c == 0:
                                 continue
@@ -82,8 +86,9 @@ if __name__ == '__main__':
                         
                         if T.isTie():
                             print(T.present())
-                            print("\nTied")
+                            print("\n*****TIED*****")
 
+                            print(con)
                             c = cont()
                             if c == 0:
                                 continue
