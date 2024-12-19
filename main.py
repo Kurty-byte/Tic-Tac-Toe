@@ -124,6 +124,7 @@ if __name__ == '__main__':
                 except ValueError:
                     print('\nInput valid value')
         elif inp == "2":
+            print('\nOn progress...')
             pass
 
         else:
